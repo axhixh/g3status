@@ -10,7 +10,7 @@ import (
 // return power/battery status using information from
 // /sys/class/power_supply/BAT0/
 
-func GetPower() string {
+func GetPower() *Block {
 	const discharging = '\uf215'
 	const charging = '\uf25b'
 	var status int
@@ -19,7 +19,7 @@ func GetPower() string {
 	} else {
 		status = charging
 	}
-	return fmt.Sprintf("{\"name\":\"power\", \"full_text\":\"%c %3d%%\"}", status, getCapacity())
+	return &Block{Name: "power", FullText: fmt.Sprintf("%c %3d%%", status, getCapacity())}
 }
 
 func getCapacity() int {
