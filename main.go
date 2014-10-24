@@ -10,7 +10,8 @@ func printHeader() {
 }
 
 func printRow() {
-	fmt.Printf("[%s,%s,%s,%s,%s],\n",
+	fmt.Printf("[%s,%s,%s,%s,%s,%s],\n",
+		GetDisk().ToJson(),
 		GetPower().ToJson(),
 		GetIpAddr().ToJson(),
 		GetLocalTime().ToJson(),
