@@ -13,6 +13,15 @@ I recommend having DejaVu Sans Mono and Icons installed. DejaVu
 is available in official ArchLinux repositories and Icons is
 available from AUR at https://aur.archlinux.org/packages/ttf-font-icons/
 
+Since there is no binary available for download, please install
+Go on your system to compile the source.
+
+##Installation
+Please use _go get_ to install g3status.
+
+   go get github.com/axhixh/g3status
+
+
 Please edit your i3 configuration file to use *g3status* as
 the status command and to use the two recommended fonts.
 
