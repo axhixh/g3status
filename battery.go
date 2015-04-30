@@ -7,19 +7,19 @@ import (
 	"strings"
 )
 
-// return power/battery status using information from
-// /sys/class/power_supply/BAT0/
-
 func GetPower() *Block {
 	const discharging = '\uf215'
 	const charging = '\uf25b'
+
+	battery := getBattery()
+
 	var status int
-	if isDischarging() {
+	if isDischarging(battery) {
 		status = discharging
 	} else {
 		status = charging
 	}
-	capacity := getCapacity()
+	capacity := getCapacity(battery)
 	var color string
 	if capacity > 20 {
 		color = "#00ff00"
@@ -33,8 +33,22 @@ func GetPower() *Block {
 		Color:    color}
 }
 
-func getCapacity() int {
-	value, err := read("/sys/class/power_supply/BAT0/capacity")
+func getBattery() string {
+	files, err := ioutil.ReadDir("/sys/class/power_supply")
+	if err != nil {
+		return "/sys/class/power_supply/BAT0"
+	}
+
+	for _, file := range files {
+		if strings.HasPrefix(file.Name(), "BAT") {
+			return "/sys/class/power_supply/" + file.Name()
+		}
+	}
+	return "/sys/class/power_supply/BAT0"
+}
+
+func getCapacity(battery string) int {
+	value, err := read(battery + "/capacity")
 	if err != nil {
 		return -1
 	}
@@ -46,8 +60,8 @@ func getCapacity() int {
 	return capacity
 }
 
-func isDischarging() bool {
-	status, err := read("/sys/class/power_supply/BAT0/status")
+func isDischarging(battery string) bool {
+	status, err := read(battery + "/status")
 	if err != nil {
 		return false
 	}
