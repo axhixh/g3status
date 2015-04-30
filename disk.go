@@ -6,7 +6,7 @@ import (
 )
 
 func GetDisk() *Block {
-	return &Block{"disk", "/", humanize(diskUsage("/"))}
+	return &Block{"disk", "/", humanize(diskUsage("/")), ""}
 }
 
 func diskUsage(path string) float64 {

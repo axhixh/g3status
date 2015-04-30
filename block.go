@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 )
 
-// Represents a block on the status bar. Does not
-// include all the available properties like colour etc
+// Represents a block on the status bar.
 type Block struct {
 	Name     string `json:"name"`
 	Instance string `json:"instance,omitempty"`
 	FullText string `json:"full_text"`
+	Color    string `json:"color,omitempty"`
 }
 
 func (block *Block) ToJson() string {

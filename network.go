@@ -11,7 +11,7 @@ func GetIpAddr() *Block {
 		if strings.HasPrefix(addr.String(), "127") {
 			continue
 		}
-		return &Block{"net", addr.Network(), addr.String()}
+		return &Block{"net", addr.Network(), addr.String(), ""}
 	}
-	return &Block{"net", "default", "No network"}
+	return &Block{"net", "default", "No network", ""}
 }

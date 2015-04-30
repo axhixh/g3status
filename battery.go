@@ -19,7 +19,18 @@ func GetPower() *Block {
 	} else {
 		status = charging
 	}
-	return &Block{Name: "power", FullText: fmt.Sprintf("%c %3d%%", status, getCapacity())}
+	capacity := getCapacity()
+	var color string
+	if capacity > 20 {
+		color = "#00ff00"
+	} else {
+		color = "#ff0000"
+	}
+
+	return &Block{
+		Name:     "power",
+		FullText: fmt.Sprintf("%c %3d%%", status, capacity),
+		Color:    color}
 }
 
 func getCapacity() int {
